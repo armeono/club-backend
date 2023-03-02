@@ -11,6 +11,3 @@ app
   .on("error", (err: Error) => {
     console.log(err);
   });
-
-const test = 4;
-  //test
