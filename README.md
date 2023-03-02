@@ -1,1 +1,1 @@
-# club-backend
+# Club Membership app backend
