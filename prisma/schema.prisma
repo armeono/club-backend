@@ -3,27 +3,29 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 
   relationMode = "prisma"
 }
 
 model User {
   id         Int              @id @default(autoincrement())
-  name       String
+  title      String
   username   String?
-  admin      Boolean
-  clubId     Int
+  email      String           @unique
+  password   String
+  role       Role
+  clubId     String
   status     MemberStatus
   statistics UserStatistics[]
   club       Club             @relation(fields: [clubId], references: [id])
 }
 
 model Club {
-  id    Int    @id @default(autoincrement())
+  id    String @id @default(uuid())
   name  String
+  logo  String
   users User[]
 }
 
@@ -33,7 +35,30 @@ model UserStatistics {
   user   User @relation(fields: [userId], references: [id])
 }
 
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Poll {
+  id        String   @id @default(uuid())
+  title     String
+  content   String?
+  upvotes   Int      @default(0)
+  downvotes Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
 enum MemberStatus {
   ACTIVE
   PAUSED
+}
+
+enum Role {
+  ADMIN
+  USER
 }
