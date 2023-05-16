@@ -3,11 +3,11 @@ import { prisma } from "../../../prisma/client";
 
 const router = Router();
 
-router.get("/users", (req: Request, res: Response) => {
+router.get("/", (req: Request, res: Response) => {
   res.send("users");
 });
 
-router.get("/users/:id", async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({
     where: {
       id: Number(req.params.id),
@@ -24,7 +24,7 @@ router.get("/users/:id", async (req: Request, res: Response) => {
   res.status(200).send(user);
 });
 
-router.get("/users/:clubId", async (req: Request, res: Response) => {
+router.get("/:clubId", async (req: Request, res: Response) => {
   const users = await prisma.user.findMany({
     where: {
       clubId: req.params.clubId,

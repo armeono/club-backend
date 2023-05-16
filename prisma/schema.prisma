@@ -12,14 +12,14 @@ datasource db {
 model User {
   id         Int              @id @default(autoincrement())
   title      String
-  username   String?
+  username   String?          @unique
   email      String           @unique
   password   String
   role       Role
-  clubId     String
+  clubId     String?
   status     MemberStatus
   statistics UserStatistics[]
-  club       Club             @relation(fields: [clubId], references: [id])
+  club       Club?            @relation(fields: [clubId], references: [id])
 }
 
 model Club {

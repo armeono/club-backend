@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import userRouter from "./routes/users";
 import clubRouter from "./routes/clubs";
 import authRouter from "./routes/auth";
+import { authMiddleware } from "./middleware/auth";
 
 const app = express();
 
@@ -12,11 +13,13 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 //Middleware
+app.use(express.json());
+app.use(authMiddleware);
 
 //Routes
-app.use("/api", userRouter);
-app.use("/api", clubRouter);
-app.use("/api", authRouter);
+app.use("/api/users", userRouter);
+app.use("/api/club", clubRouter);
+app.use("/api/auth", authRouter);
 
 app
   .listen(PORT, () => {
