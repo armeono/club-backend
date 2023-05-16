@@ -3,16 +3,13 @@ import { prisma } from "../../../prisma/client";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.send("users");
-});
-
+// GET user by ID
 router.get("/:id", async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({
     where: {
       id: Number(req.params.id),
     },
-    select: {
+    include: {
       statistics: true,
     },
   });
@@ -24,7 +21,8 @@ router.get("/:id", async (req: Request, res: Response) => {
   res.status(200).send(user);
 });
 
-router.get("/:clubId", async (req: Request, res: Response) => {
+// GET all users of specific club
+router.get("/club/:clubId", async (req: Request, res: Response) => {
   const users = await prisma.user.findMany({
     where: {
       clubId: req.params.clubId,

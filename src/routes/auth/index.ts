@@ -55,7 +55,12 @@ router.post("/login", async (req: Request, res: Response) => {
 
   const token = jwt.sign(loginData, process.env.ACCESS_TOKEN_SECRET!);
 
-  res.status(200).json({ token });
+  const returnObject = {
+    token,
+    user,
+  };
+
+  res.status(200).json();
 });
 
 router.post("/resetPassword", (req: Request, res: Response) => {});

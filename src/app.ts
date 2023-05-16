@@ -18,7 +18,7 @@ app.use(authMiddleware);
 
 //Routes
 app.use("/api/users", userRouter);
-app.use("/api/club", clubRouter);
+app.use("/api/clubs", clubRouter);
 app.use("/api/auth", authRouter);
 
 app
