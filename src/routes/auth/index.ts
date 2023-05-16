@@ -28,6 +28,7 @@ router.post("/register", async (req: Request, res: Response) => {
 
     res.status(201).json(newUser);
   } catch (err) {
+    console.log(err);
     res.status(400).send("Error creating user! Check request object!");
   }
 });
@@ -37,12 +38,12 @@ router.post("/login", async (req: Request, res: Response) => {
 
   console.log(loginData);
 
-  if (!loginData.username || !loginData.password)
+  if (!loginData.email || !loginData.password)
     res.status(400).send("Username and password are required!");
 
   const user = await prisma.user.findFirst({
     where: {
-      username: loginData.username,
+      email: loginData.email,
     },
   });
 
