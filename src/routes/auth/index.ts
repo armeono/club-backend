@@ -60,7 +60,7 @@ router.post("/login", async (req: Request, res: Response) => {
     user,
   };
 
-  res.status(200).json();
+  res.status(200).json(returnObject);
 });
 
 router.post("/resetPassword", (req: Request, res: Response) => {});
