@@ -12,9 +12,12 @@ datasource db {
 model User {
   id         Int              @id @default(autoincrement())
   title      String
+  image      String?
   username   String?          @unique
   email      String           @unique
   password   String
+  firstName  String?
+  lastName   String?
   role       Role
   clubId     String?
   status     MemberStatus

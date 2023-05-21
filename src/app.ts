@@ -3,6 +3,7 @@ import userRouter from "./routes/users";
 import clubRouter from "./routes/clubs";
 import authRouter from "./routes/auth";
 import { authMiddleware } from "./middleware/auth";
+require("dotenv").config();
 
 const app = express();
 
