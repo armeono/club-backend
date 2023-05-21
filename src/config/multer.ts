@@ -23,6 +23,12 @@ const storage = multer.diskStorage({
 
         if (error) console.log(error);
 
+        const imageURL = await supabase.storage
+          .from("user-avatars")
+          .getPublicUrl(data.path);
+
+        req.body.image = imageURL;
+
         fs.unlinkSync(`uploads/${fileName}`);
       } catch (err) {
         console.log(err);
@@ -31,4 +37,4 @@ const storage = multer.diskStorage({
   },
 });
 
-export const upload = multer({ storage: storage });
+export const profilePicUpload = multer({ storage: storage });
